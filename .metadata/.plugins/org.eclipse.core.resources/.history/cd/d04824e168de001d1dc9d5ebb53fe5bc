@@ -1,0 +1,41 @@
+package com.personal.juice.sql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BeverageDataAccess {
+	private Connection connection;
+
+	public BeverageDataAccess() {
+		String url = "jdbc:mysql://localhost:3306/beverages";
+		String user = "root";
+		String password = "password";
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public List<String> getAllBeveragesAsString() {
+		List<String> beverages = new ArrayList<>();
+		String query = "SELECT type, brand, calories FROM beverages";
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(query);
+		while (resultSet.next()) {
+			String type = resultSet.getString("type");
+			String brand = resultSet.getString("brand");
+			int calories = resultSet.getInt("calories");
+			String formattedBeverage = String.format("%s | %s | %d", type, brand, calories);
+			beverages.add(formattedBeverage);
+z
+		}
+		return beverages;
+	}
+}

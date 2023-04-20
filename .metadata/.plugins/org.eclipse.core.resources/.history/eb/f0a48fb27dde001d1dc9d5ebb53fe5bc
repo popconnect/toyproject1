@@ -1,0 +1,36 @@
+package com.personal.juice.sql;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnector {
+    private static Connection connection = null;
+
+    public static Connection getConnection() {
+        try {
+            // JDBC 드라이버 로드
+            Class.forName("org.mariadb.jdbc.Driver");
+
+            // DB 연결
+            String url = "jdbc:mariadb://localhost:3306/toyproject";
+            String user = "toyproject";
+            String password = "toyprojectpw";
+            connection = DriverManager.getConnection(url, user, password);
+            System.out.println("DB connected");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                System.out.println("DB disconnected");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

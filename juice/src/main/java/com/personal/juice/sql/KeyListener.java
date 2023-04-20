@@ -1,0 +1,47 @@
+package com.personal.juice.sql;
+
+
+import java.awt.event.KeyEvent;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+
+import javax.swing.JList;
+
+public class KeyListener implements java.awt.event.KeyListener {
+	
+	private JList<String> list;
+
+	public KeyListener(JList<String> list) {
+        this.list = list;
+    }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		 if (e.getKeyCode() == KeyEvent.VK_F5) {
+	            // JList 새로고침
+	            DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
+	            model.clear();
+	            List<Beverage> beverages = BeverageController.getAllBeverages();
+	            for (Beverage beverage : beverages) {
+	                String beverageString = String.format("%s | %s | %s | %s | %s | %s | %s", beverage.getPk(), beverage.getName(), beverage.getType(),
+	                        beverage.getBrand(), beverage.getCalories(), beverage.getServingSize(), beverage.getCaffeine());
+	                model.addElement(beverageString);
+	            }
+	        }
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

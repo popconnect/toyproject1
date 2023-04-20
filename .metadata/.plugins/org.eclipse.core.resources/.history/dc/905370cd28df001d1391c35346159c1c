@@ -1,0 +1,41 @@
+package com.personal.combobox;
+
+import java.util.ArrayList;
+
+import javax.swing.DefaultComboBoxModel;
+
+import com.personal.juice.sql.Beverage;
+import com.personal.juice.sql.BeverageSearch;
+
+public class BeverageComboboxModel extends DefaultComboBoxModel<String> {
+
+private ArrayList<Beverage> beverages ;
+	
+	public BeverageComboboxModel() {
+		// TODO Auto-generated constructor stub
+		beverages = new ArrayList<>();
+		Beverage to = new Beverage();
+		to.setBrand("음료이름");
+		beverages.add(to);
+	}
+	
+	public BeverageComboboxModel(String strType, String strBrand) {
+		BeverageSearch dao = new BeverageSearch();
+		
+		beverages = dao.listBeverage(strType, strBrand);
+	}
+	
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return beverages.size();
+	}
+	
+	@Override
+	public String getElementAt(int index) {
+		// TODO Auto-generated method stub
+		Beverage to = beverages.get(index);
+		return to.getDong();
+	}
+	
+}

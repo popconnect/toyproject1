@@ -1,0 +1,31 @@
+package com.personal.juice.sql;
+
+import java.sql.*;
+
+public class BeverageController {
+    public static void main(String[] args) {
+        String url = "jdbc:mariadb://localhost:3306/db_name";
+        String user = "username";
+        String password = "password";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            String query = "SELECT `beverage`, `type`, `brand`, `calories`, `serving_size`, `caffeine` FROM beverages";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String beverage = rs.getString("beverage");
+                String type = rs.getString("type");
+                String brand = rs.getString("brand");
+                String calories = rs.getString("calories");
+                String servingSize = rs.getString("serving_size");
+                String caffeine = rs.getString("caffeine");
+
+                String result = String.format("%s | %s | %s | %s | %s | %s", beverage, type, brand, calories, servingSize, caffeine);
+                System.out.println(result);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}

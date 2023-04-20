@@ -1,0 +1,37 @@
+package com.personal.juice.sql;
+
+public class Beverage {
+    private String beverageType;
+    private String brand;
+    private int calories;
+    private String servingSize;
+    private int caffeine;
+
+    public Beverage(String beverageType, String brand, int calories, String servingSize, int caffeine) {
+        this.beverageType = beverageType;
+        this.brand = brand;
+        this.calories = calories;
+        this.servingSize = servingSize;
+        this.caffeine = caffeine;
+    }
+
+    public String getBeverageType() {
+        return beverageType;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public String getServingSize() {
+        return servingSize;
+    }
+
+    public int getCaffeine() {
+        return caffeine;
+    }
+}

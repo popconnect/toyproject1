@@ -1,0 +1,10 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="com.personal.juice.sql.BeverageController"><rhs name\="com.personal.juice.sql.BeverageController"/></lhs><lhs name\="com.personal.juice.sql.DBConnector"><rhs name\="com.personal.juice.sql.DBConnector"/></lhs><lhs name\="com.personal.juice.sql.Beverage"><rhs name\="com.personal.juice.sql.Beverage"/></lhs><lhs name\="javax.swing.ListModel"><rhs name\="com.personal.combobox.TypeComboboxModel"/><rhs name\="com.personal.combobox.BrandComboboxModel"/></lhs><lhs name\="javax.swing.ComboBoxModel"><rhs name\="com.personal.combobox.TypeComboboxModel"/><rhs name\="com.personal.combobox.BrandComboboxModel"/></lhs><lhs name\="com.personal.juice.sql.SurveyController"><rhs name\="com.personal.juice.sql.SurveyController"/></lhs></history>
+content_assist_number_of_computers=17
+eclipse.preferences.version=1
+org.eclipse.jdt.internal.ui.navigator.layout=2
+org.eclipse.jdt.internal.ui.navigator.librariesnode=true
+org.eclipse.jdt.ui.formatterprofiles.version=23
+spelling_locale_initialized=true
+typefilter_migrated_2=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

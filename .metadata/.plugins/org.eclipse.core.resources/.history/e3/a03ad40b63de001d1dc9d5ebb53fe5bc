@@ -1,0 +1,117 @@
+package com.personal.juice.swing;
+
+import java.awt.EventQueue;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTree;
+import javax.swing.UIManager;
+
+import java.awt.Cursor;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.JButton;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
+
+
+public class DrinkListManager extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DrinkListManager frame = new DrinkListManager();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public DrinkListManager() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 650, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTree tree = new JTree();
+		tree.setShowsRootHandles(true);
+		tree.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tree.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tree.setBounds(12, 13, 153, 325);
+		contentPane.add(tree);
+		
+		JButton btngroupadd = new JButton("그룹 추가");
+		btngroupadd.setBounds(12, 360, 153, 23);
+		contentPane.add(btngroupadd);
+		
+		JButton btngroupmodi = new JButton("그룹 수정");
+		btngroupmodi.setBounds(12, 393, 153, 23);
+		contentPane.add(btngroupmodi);
+		
+		JButton btngroupdel = new JButton("그룹 제거");
+		btngroupdel.setBounds(12, 428, 153, 23);
+		contentPane.add(btngroupdel);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "\uC74C\uB8CC\uAD00\uB9AC", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(177, 13, 445, 65);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JButton btnadd = new JButton("음료 추가");
+		btnadd.setBounds(31, 25, 120, 23);
+		panel.add(btnadd);
+		
+		JButton btnmodi = new JButton("음료 수정");
+		btnmodi.setBounds(163, 25, 120, 23);
+		panel.add(btnmodi);
+		
+		JButton btndel = new JButton("음료 제거");
+		btndel.setBounds(295, 25, 120, 23);
+		panel.add(btndel);
+		
+		JList list = new JList();
+		list.setBounds(177, 89, 445, 362);
+		contentPane.add(list);
+		
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		list.setModel(listModel);
+
+		// 카페인 있는 음료
+		ArrayList<String> caffeineBeverages = getBeveragesByCaffeine(true);
+		for (String beverage : caffeineBeverages) {
+		    listModel.addElement(beverage);
+		}
+
+		// 카페인 없는 음료
+		ArrayList<String> decafBeverages = getBeveragesByCaffeine(false);
+		for (String beverage : decafBeverages) {
+		    listModel.addElement(beverage);
+		}
+	}
+}
+
+	
+

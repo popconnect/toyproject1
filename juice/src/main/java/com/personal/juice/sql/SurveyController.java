@@ -1,0 +1,66 @@
+package com.personal.juice.sql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class SurveyController {
+	private String beverage;
+	private String nickname;
+	private String contact;
+	private String email;
+	private String drinkType;
+	private String rating;
+	private String comment;
+	private static final String DB_URL = "jdbc:mariadb://localhost:3306/toyproject";
+	private static final String USER = "toyproject";
+	private static final String PASS = "toyprojectpw";
+	
+	
+	public SurveyController(String beverage, String nickname, String contact, String email, String drinkType,
+			String rating, String comment) {
+		
+		this.beverage = beverage;
+		this.nickname = nickname;
+		this.contact = contact;
+		this.email = email;
+		this.drinkType = drinkType;
+		this.rating = rating;
+		this.comment = comment;
+	}
+	
+	
+	public void insert() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			String sql = "INSERT INTO survey (beverage, nickname, contact, email, drink_type, rating, comment) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, beverage);
+			pstmt.setString(2, nickname);
+			pstmt.setString(3, contact);
+			pstmt.setString(4, email);
+			pstmt.setString(5, drinkType);
+			pstmt.setString(6, rating);
+			pstmt.setString(7, comment);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,32 @@
+package com.personal.juice.sql;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ComboBoxController {
+	Connection conn = DBConnector.getConnection();
+	Statement stmt = null;
+	ResultSet rs = null;
+	String query = "SELECT DISTINCT type FROM beverages ORDER BY type ASC";
+
+	try {
+	    stmt = conn.createStatement();
+	    rs = stmt.executeQuery(query);
+	    while (rs.next()) {
+	        type.addItem(rs.getString("type"));
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	} finally {
+	    // DB 연결 종료
+	    try {
+	        if (rs != null) rs.close();
+	        if (stmt != null) stmt.close();
+	        DBConnector.closeConnection();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+}

@@ -1,0 +1,20 @@
+package com.personal.combobox;
+
+import java.util.ArrayList;
+
+import javax.swing.ComboBoxModel;
+
+import com.personal.juice.sql.Beverage;
+
+public class TypeComboboxModel implements ComboBoxModel<String> {
+	private ArrayList<Beverage> types ;
+	
+	public TypeComboboxModel() {
+		// TODO Auto-generated constructor stub
+		types = new ArrayList<>();
+		Beverage to = new Beverage();
+		to.setType("타입");
+		types.add(to);
+		
+	}
+}

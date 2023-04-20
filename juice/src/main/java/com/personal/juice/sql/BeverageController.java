@@ -1,0 +1,41 @@
+package com.personal.juice.sql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BeverageController {
+    private static final String DB_URL = "jdbc:mariadb://localhost:3306/toyproject";
+    private static final String DB_USER = "toyproject";
+    private static final String DB_PASSWORD = "toyprojectpw";
+
+    public static List<Beverage> getAllBeverages() {
+        List<Beverage> beverages = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM beverages");
+            ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                // 각각의 컬럼 값을 Beverage 객체에 저장한다.
+                Beverage beverage = new Beverage();
+                beverage.setPk(rs.getInt("id"));
+                beverage.setName(rs.getString("beverage"));
+                beverage.setType(rs.getString("type"));
+                beverage.setBrand(rs.getString("brand"));
+                beverage.setCalories(rs.getInt("calories"));
+                beverage.setServingSize(rs.getString("serving_size"));
+                beverage.setCaffeine(rs.getInt("caffeine"));
+                beverages.add(beverage);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return beverages;
+    }
+}

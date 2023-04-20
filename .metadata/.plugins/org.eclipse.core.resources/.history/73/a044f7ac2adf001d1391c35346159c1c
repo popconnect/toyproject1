@@ -1,0 +1,35 @@
+package com.personal.combobox;
+
+import java.util.ArrayList;
+
+import javax.swing.DefaultComboBoxModel;
+
+import com.personal.juice.sql.Beverage;
+import com.personal.juice.sql.BeverageSearch;
+
+public class TypeComboboxModel extends DefaultComboBoxModel<String> {
+	private ArrayList<Beverage> types ;
+	
+	public TypeComboboxModel() {
+		// TODO Auto-generated constructor stub
+		//types = new ArrayList<>();
+		BeverageSearch to = new BeverageSearch();
+		
+		type = to.listType();
+	}
+	
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return types.size();
+	}
+	
+	@Override
+	public String getElementAt(int index) {
+		// TODO Auto-generated method stub
+		Beverage to = types.get(index);
+		return to.getType();
+	}
+	
+	
+}

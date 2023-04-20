@@ -1,0 +1,118 @@
+package com.personal.juice.swing;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+
+public class AddBeverage extends JDialog {
+	private JTextField textField;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddBeverage dialog = new AddBeverage();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public AddBeverage() {
+		setResizable(false);
+		setBounds(100, 100, 400, 450);
+		getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "\uC74C\uB8CC \uCD94\uAC00", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(16, 17, 356, 358);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setBounds(98, 26, 246, 29);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("음료 이름");
+		lblNewLabel.setBounds(25, 33, 61, 19);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_1 = new JLabel("음료 종류");
+		lblNewLabel_1.setBounds(25, 72, 61, 19);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(98, 104, 246, 29);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("브랜드");
+		lblNewLabel_2.setBounds(25, 111, 61, 19);
+		panel.add(lblNewLabel_2);
+		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(98, 143, 246, 29);
+		panel.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("칼로리");
+		lblNewLabel_3.setBounds(25, 150, 61, 19);
+		panel.add(lblNewLabel_3);
+		lblNewLabel_3.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(98, 182, 246, 29);
+		panel.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("기준용량");
+		lblNewLabel_4.setBounds(25, 189, 61, 19);
+		panel.add(lblNewLabel_4);
+		lblNewLabel_4.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(98, 221, 246, 29);
+		panel.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("카페인");
+		lblNewLabel_5.setBounds(25, 228, 61, 19);
+		panel.add(lblNewLabel_5);
+		lblNewLabel_5.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		JButton btnNewButton = new JButton("추가하기");
+		btnNewButton.setBounds(25, 287, 319, 29);
+		panel.add(btnNewButton);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(98, 65, 246, 29);
+		panel.add(comboBox);
+
+	}
+}

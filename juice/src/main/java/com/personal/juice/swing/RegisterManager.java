@@ -1,0 +1,122 @@
+package com.personal.juice.swing;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import com.personal.juice.sql.RegisterController;
+
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class RegisterManager extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JTextField textField1;
+	private JTextField textField2;
+	private JTextField textField4;
+	private JTextField textField3;
+
+
+	public RegisterManager() {
+		setTitle("회원가입");
+		getContentPane().setBackground(new Color(255, 255, 255));
+		setResizable(false);
+		setBounds(100, 100, 450, 200);
+		getContentPane().setLayout(null);
+		contentPanel.setBackground(new Color(255, 255, 255));
+		contentPanel.setBounds(0, 0, 434, 128);
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel);
+		contentPanel.setLayout(null);
+		{
+			JLabel lbl_nm = new JLabel("이름");
+			lbl_nm.setFont(new Font("굴림", Font.PLAIN, 16));
+			lbl_nm.setBounds(27, 37, 32, 18);
+			contentPanel.add(lbl_nm);
+		}
+		{
+			textField1 = new JTextField();
+			textField1.setBounds(70, 33, 120, 25);
+			contentPanel.add(textField1);
+			textField1.setColumns(10);
+		}
+		{
+			textField2 = new JTextField();
+			textField2.setColumns(10);
+			textField2.setBounds(70, 68, 120, 25);
+			contentPanel.add(textField2);
+		}
+		{
+			JLabel lbl_ph = new JLabel("이메일");
+			lbl_ph.setFont(new Font("굴림", Font.PLAIN, 16));
+			lbl_ph.setBounds(15, 73, 48, 18);
+			contentPanel.add(lbl_ph);
+		}
+		{
+			JLabel lbl_pw = new JLabel("비밀번호");
+			lbl_pw.setFont(new Font("굴림", Font.PLAIN, 16));
+			lbl_pw.setBounds(208, 72, 64, 18);
+			contentPanel.add(lbl_pw);
+		}
+		{
+			textField3 = new JTextField();
+			textField3.setColumns(10);
+			textField3.setBounds(284, 68, 120, 25);
+			contentPanel.add(textField3);
+		}
+		{
+			JLabel lbl_id = new JLabel("아이디");
+			lbl_id.setFont(new Font("굴림", Font.PLAIN, 16));
+			lbl_id.setBounds(224, 37, 48, 18);
+			contentPanel.add(lbl_id);
+		}
+		{
+			textField4 = new JTextField();
+			textField4.setColumns(10);
+			textField4.setBounds(284, 33, 120, 25);
+			contentPanel.add(textField4);
+			
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBounds(0, 128, 434, 33);
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String id = textField4.getText();
+				        String pw = textField3.getText();
+				        String jb = textField2.getText();
+				        String nm = textField1.getText();
+				        
+				        RegisterController sqlClass = new RegisterController();
+				        sqlClass.connect();
+				        sqlClass.insertData(id, pw, jb, nm);
+				        sqlClass.disconnect();
+				        dispose();
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+
+}

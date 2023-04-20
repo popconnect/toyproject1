@@ -1,0 +1,153 @@
+package com.personal.juice.swing;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import com.personal.combobox.BrandComboboxModel;
+import com.personal.combobox.TypeComboboxModel;
+import com.personal.juice.sql.Beverage;
+import com.personal.juice.sql.BeverageController;
+import com.personal.juice.sql.BeverageDeleter;
+import com.personal.juice.sql.KeyListener;
+import com.personal.combobox.BeverageComboboxModel;
+import com.personal.juice.sql.BeverageSearch;
+
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+
+public class DrinkList extends JFrame {
+
+	private JPanel contentPane;
+	private JList<String> list;
+	private JComboBox cb1;
+	private JComboBox cb2;
+	private JComboBox cb3;
+
+	public DrinkList() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 485, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "\uC74C\uB8CC\uAC80\uC0C9", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(12, 6, 445, 77);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		cb1 = new JComboBox();
+		cb1.setBounds(25, 40, 118, 23);
+		panel.add(cb1);
+		cb1.setModel(new TypeComboboxModel());
+		cb1.addItemListener( new ItemListener() {
+			public void itemStateChanged( ItemEvent e ) {
+				if( e.getStateChange() == ItemEvent.SELECTED ) {
+					//System.out.println(combo1.getSelectedItem());
+					if(cb1 != null) {
+						cb2.setModel(new BrandComboboxModel((String)cb1.getSelectedItem()));
+						cb2.setSelectedIndex(0);
+					}
+				}
+			}
+		});
+		
+		cb2 = new JComboBox();
+		cb2.setModel(new BrandComboboxModel());
+		cb2.addItemListener( new ItemListener() {
+			public void itemStateChanged( ItemEvent e ) {
+				if( e.getStateChange() == ItemEvent.SELECTED ) {
+					if(cb2 != null) {
+						System.out.println(cb1.getSelectedItem());
+						System.out.println(cb2.getSelectedItem());
+						cb2.setModel(new BeverageComboboxModel((String)cb1.getSelectedItem() ,(String)cb2.getSelectedItem()));
+						cb2.setSelectedIndex(0);
+					}
+				}
+			}
+		} );
+		cb2.setBounds(165, 40, 118, 23);
+		panel.add(cb2);
+		
+		cb3 = new JComboBox();
+		cb3.setModel(new BeverageComboboxModel());
+		cb3.addItemListener( new ItemListener() {
+			public void itemStateChanged( ItemEvent e ) {
+				if( e.getStateChange() == ItemEvent.SELECTED ) {
+					BeverageSearch dao = new BeverageSearch();
+					
+					String type = (String)cb1.getSelectedItem();
+					String brand = (String)cb2.getSelectedItem();
+					String beverage = (String)cb3.getSelectedItem();
+					
+					ArrayList<Beverage> beverages = dao.showUserBeverageList(type, brand, beverage);
+					
+					for(Beverage to : beverages) {
+						String strBeverage = String.format("[%s] %s %s", type, brand, beverage);
+						DefaultListModel<String> listModel = new DefaultListModel<String>();
+						listModel.addElement(strBeverage);
+					}
+				}
+			}
+		} );
+		cb3.setBounds(305, 40, 118, 23);
+		panel.add(cb3);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(51, 15, 57, 15);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(194, 15, 57, 15);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(334, 15, 57, 15);
+		panel.add(lblNewLabel_2);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 89, 445, 362);
+		contentPane.add(scrollPane);
+
+		list = new JList<String>();
+		scrollPane.setViewportView(list);
+
+		BeverageController beverageController = new BeverageController();
+
+		// 데이터베이스에서 음료 정보 가져오기
+		List<Beverage> beverages = beverageController.getAllBeverages();
+
+		// JList에 표시할 문자열 생성
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for (Beverage beverage : beverages) {
+			String beverageString = String.format("%s | %s | %s | %s | %s | %s | %s", beverage.getPk(), beverage.getName(), beverage.getType(),
+					beverage.getBrand(), beverage.getCalories(), beverage.getServingSize(), beverage.getCaffeine());
+			listModel.addElement(beverageString);
+		}
+
+		// JList에 모델 적용
+		list.setModel(listModel);
+		list.addKeyListener(new KeyListener(list));
+	}
+}

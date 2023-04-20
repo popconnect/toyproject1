@@ -1,0 +1,104 @@
+package com.personal.juice.swing;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTree;
+import javax.swing.UIManager;
+
+import java.awt.Cursor;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+
+public class DrinkListManager extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DrinkListManager frame = new DrinkListManager();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public DrinkListManager() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 700, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTree tree = new JTree();
+		tree.setShowsRootHandles(true);
+		tree.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tree.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tree.setBounds(12, 10, 153, 360);
+		contentPane.add(tree);
+		
+		UIManager.put("Tree.leafIcon", new CustomIcon());
+		UIManager.put("Tree.closedIcon", UIManager.getIcon("Tree.leafIcon"));
+		UIManager.put("Tree.openIcon", UIManager.getIcon("Tree.leafIcon"));
+		
+		// JTree에 노드 추가
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("음료 리스트");
+		DefaultMutableTreeNode juiceNode = new DefaultMutableTreeNode("카페음료");
+		DefaultMutableTreeNode sodaNode = new DefaultMutableTreeNode("일반음료");
+		root.add(juiceNode);
+		root.add(sodaNode);
+		tree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("카페인 음료수") {
+				{
+				}
+			}
+		));
+		}
+	
+	private static class CustomIcon implements javax.swing.Icon {
+
+        private final int SIZE = 10;
+        private final Color COLOR = Color.BLACK;
+
+        @Override
+        public void paintIcon(java.awt.Component c, java.awt.Graphics g, int x, int y) {
+            java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+            g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(COLOR);
+            g2.fillOval(x, y, SIZE, SIZE);
+            g2.dispose();
+        }
+
+        @Override
+        public int getIconWidth() {
+            return SIZE;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return SIZE;
+        }
+    }
+	}
+
+	
+}

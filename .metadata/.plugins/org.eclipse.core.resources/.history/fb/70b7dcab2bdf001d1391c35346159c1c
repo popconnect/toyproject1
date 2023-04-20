@@ -1,0 +1,165 @@
+package com.personal.juice.sql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+import java.util.ArrayList;
+
+public class BeverageSearch {
+
+private Connection conn ;
+	
+	public BeverageSearch() {
+	    String url = "jdbc:mariadb://localhost:3306/toyproject";
+	    String user = "toyproject";
+	    String password = "toyprojectpw";
+
+	    try {
+	        Class.forName("org.mariadb.jdbc.Driver");
+	        this.conn = DriverManager.getConnection(url, user, password);
+	    } catch (ClassNotFoundException e) {
+	        System.out.println("[Error]" + e.getMessage());
+	    } catch (SQLException e) {
+	        System.out.println("[Error]" + e.getMessage());
+	    } finally {
+	        // TODO Auto-generated constructor stub
+	    }
+	}
+	
+	public ArrayList<Beverage> listType() {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Beverage> sidos = new ArrayList<>();
+		
+		try {
+			String sql = "SELECT DISTINCT type FROM beverages";
+			pstmt = this.conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Beverage to = new Beverage();
+				to.setType(rs.getString("type"));
+				sidos.add(to);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("[Error]" + e.getMessage());
+		} finally {
+			if(conn != null) try {conn.close();} catch (SQLException e) {}
+			if(rs != null) try {rs.close();} catch (SQLException e) {}
+			if(pstmt != null) try {pstmt.close();} catch (SQLException e) {}
+		}
+		
+		return sidos;
+		
+	}
+	public ArrayList<Beverage> listBrand(String strType) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Beverage> brand = new ArrayList<>();
+		
+		try {
+			String sql = "SELECT DISTINCT brand FROM beverages where type = ?";
+			pstmt = this.conn.prepareStatement(sql);
+			pstmt.setString(1, strType);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Beverage to = new Beverage();
+				System.out.println(rs.getString("brand"));
+				to.setBrand(rs.getString("brand"));
+				brand.add(to);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("[Gugun Error]" + e.getMessage());
+		} finally {
+			if(conn != null) try {conn.close();} catch (SQLException e) {}
+			if(rs != null) try {rs.close();} catch (SQLException e) {}
+			if(pstmt != null) try {pstmt.close();} catch (SQLException e) {}
+		}
+		
+		return brand;
+		
+	}
+	public ArrayList<Beverage> listBeverage(String strType, String strBrand) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Beverage> beverage = new ArrayList<>();
+		
+		
+		try {
+			String sql = "SELECT DISTINCT beverage FROM beverages where type = ? and brand = ?";
+			pstmt = this.conn.prepareStatement(sql);
+			pstmt.setString(1, strType);
+			pstmt.setString(2, strBrand);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Beverage to = new Beverage();
+				to.setBeverage(rs.getString("dong"));
+				beverage.add(to);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("[Dong Error]" + e.getMessage());
+			
+		} finally {
+			if(conn != null) try {conn.close();} catch (SQLException e) {}
+			if(rs != null) try {rs.close();} catch (SQLException e) {}
+			if(pstmt != null) try {pstmt.close();} catch (SQLException e) {}
+		}
+		
+		return beverage;
+		
+	}
+	public ArrayList<Beverage> showUserBeverageList(String strType, String strBrand, String strBeverage) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Beverage> addresses = new ArrayList<>();
+		
+		try {
+			String sql = "SELECT type, brand, beverage FROM beverages where type = ? and brand = ? and beverage = ?";
+			pstmt = this.conn.prepareStatement(sql);
+			pstmt.setString(1, strType);
+			pstmt.setString(2, strBrand);
+			pstmt.setString(3, strBeverage);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Beverage to = new Beverage();
+				to.setType(rs.getString("zipcode"));
+				to.setBrand(rs.getString("ri"));
+				to.setBeverage(rs.getString("bunji"));
+				addresses.add(to);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("[Error]" + e.getMessage());
+		} finally {
+			if(conn != null) try {conn.close();} catch (SQLException e) {}
+			if(rs != null) try {rs.close();} catch (SQLException e) {}
+			if(pstmt != null) try {pstmt.close();} catch (SQLException e) {}
+		}
+		
+		return addresses;
+		
+	}
+	
+}

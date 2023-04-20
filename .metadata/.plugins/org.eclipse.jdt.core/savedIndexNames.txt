@@ -1,0 +1,7 @@
+INDEX VERSION 1.132+C:\Users\Quiz\Desktop\Maven\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+563169018.index
+3819860947.index
+1910705009.index
+1607879219.index
+3005482881.index

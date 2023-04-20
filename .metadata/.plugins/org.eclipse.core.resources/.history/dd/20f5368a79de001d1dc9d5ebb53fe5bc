@@ -1,0 +1,154 @@
+package com.personal.juice.swing;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class AddBeverage extends JDialog {
+	private JTextField beverage_field;
+	private JTextField brand_field;
+	private JTextField kcal_field;
+	private JTextField servingsize_field;
+	private JTextField caffeine_field;
+	private JComboBox<String> type;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddBeverage dialog = new AddBeverage();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public AddBeverage() {
+		setResizable(false);
+		setBounds(100, 100, 400, 450);
+		getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "\uC74C\uB8CC \uCD94\uAC00", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(16, 17, 356, 358);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		beverage_field = new JTextField();
+		beverage_field.setBounds(98, 26, 246, 29);
+		panel.add(beverage_field);
+		beverage_field.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("음료 이름");
+		lblNewLabel.setBounds(25, 33, 61, 19);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_1 = new JLabel("음료 종류");
+		lblNewLabel_1.setBounds(25, 72, 61, 19);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		brand_field = new JTextField();
+		brand_field.setBounds(98, 104, 246, 29);
+		panel.add(brand_field);
+		brand_field.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("브랜드");
+		lblNewLabel_2.setBounds(25, 111, 61, 19);
+		panel.add(lblNewLabel_2);
+		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		kcal_field = new JTextField();
+		kcal_field.setBounds(98, 143, 246, 29);
+		panel.add(kcal_field);
+		kcal_field.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("칼로리");
+		lblNewLabel_3.setBounds(25, 150, 61, 19);
+		panel.add(lblNewLabel_3);
+		lblNewLabel_3.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		servingsize_field = new JTextField();
+		servingsize_field.setBounds(98, 182, 246, 29);
+		panel.add(servingsize_field);
+		servingsize_field.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("기준용량");
+		lblNewLabel_4.setBounds(25, 189, 61, 19);
+		panel.add(lblNewLabel_4);
+		lblNewLabel_4.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		caffeine_field = new JTextField();
+		caffeine_field.setBounds(98, 221, 246, 29);
+		panel.add(caffeine_field);
+		caffeine_field.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("카페인");
+		lblNewLabel_5.setBounds(25, 228, 61, 19);
+		panel.add(lblNewLabel_5);
+		lblNewLabel_5.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		JButton btnNewButton = new JButton("추가하기");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 try {
+			            // 1. 사용자 입력값 가져오기
+			            String beverage = beverage_field.getText().trim();
+			            String type ;
+			            String brand = brand_field.getText().trim();
+			            int calories = Integer.parseInt(kcal_field.getText().trim());
+			            String servingSize = servingsize_field.getText().trim();
+			            double caffeine = Double.parseDouble(caffeine_field.getText().trim());
+
+			            // 2. Beverage 객체 생성
+			            BeverageInserter newBeverage = new BeverageInserter(beverage, type, brand, calories, servingSize, caffeine);
+
+			            // 3. BeverageInserter를 이용해 DB에 새로운 음료 추가
+			            BeverageInserter inserter = new BeverageInserter();
+			            inserter.insert(newBeverage);
+
+			            // 4. 추가 완료 메시지 출력 및 입력 필드 초기화
+			            JOptionPane.showMessageDialog(null, "새로운 음료가 추가되었습니다.");
+			            beverage_field.setText("");
+			            brand_field.setText("");
+			            kcal_field.setText("");
+			            servingsize_field.setText("");
+			            caffeine_field.setText("");
+			            type.setSelectedIndex(0);
+
+			        } catch (Exception e) {
+			            JOptionPane.showMessageDialog(null, "입력값을 확인해주세요.");
+			        }
+			}
+		});
+		btnNewButton.setBounds(25, 287, 319, 29);
+		panel.add(btnNewButton);
+		
+		type = new JComboBox();
+		type.setBounds(98, 65, 246, 29);
+		panel.add(type);
+
+	}
+}

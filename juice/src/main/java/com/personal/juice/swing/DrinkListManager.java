@@ -1,0 +1,140 @@
+package com.personal.juice.swing;
+
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTree;
+import javax.swing.UIManager;
+
+import java.awt.Cursor;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import com.personal.juice.sql.Beverage;
+import com.personal.juice.sql.BeverageController;
+import com.personal.juice.sql.BeverageDeleter;
+import com.personal.juice.sql.KeyListener;
+
+import javax.swing.JButton;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JScrollPane;
+
+public class DrinkListManager extends JFrame {
+
+	private JPanel contentPane;
+	private JList<String> list;
+
+
+
+	/**
+	 * Create the frame.
+	 */
+	public DrinkListManager() {
+		setTitle("음료관리");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 485, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
+				"\uC74C\uB8CC\uAD00\uB9AC", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(12, 10, 445, 65);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		JButton btnadd = new JButton("음료 추가");
+		btnadd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AddBeverage dialog = new AddBeverage();
+		        dialog.setVisible(true);
+			}
+		});
+		btnadd.setBounds(31, 25, 120, 23);
+		panel.add(btnadd);
+
+		JButton btnmodi = new JButton("음료 수정");
+		btnmodi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String selectedBeverageString = list.getSelectedValue();
+				String[] selectedBeverageInfo = selectedBeverageString.split("\\|");
+				
+				String id = selectedBeverageInfo[0].trim();
+				String name = selectedBeverageInfo[1].trim();
+				String type = selectedBeverageInfo[2].trim();
+				String brand = selectedBeverageInfo[3].trim();
+				String calories = selectedBeverageInfo[4].trim();
+				String servingSize = selectedBeverageInfo[5].trim();
+				String caffeine = selectedBeverageInfo[6].trim();
+				System.out.println(brand);
+				// ChangeBeverage 클래스의 인스턴스 생성
+			    ChangeBeverage cb = new ChangeBeverage();
+			    // setBeverage 메서드를 호출하여 선택한 음료수 정보 전달
+			    cb.setBeverage(id, name, type, brand, calories, servingSize, caffeine);
+			    cb.setVisible(true);
+				
+			}
+		});
+		btnmodi.setBounds(163, 25, 120, 23);
+		panel.add(btnmodi);
+
+		JButton btndel = new JButton("음료 제거");
+		btndel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String selectedBeverageString = list.getSelectedValue();
+				String[] selectedBeverageInfo = selectedBeverageString.split("\\|");
+				
+				String id = selectedBeverageInfo[0].trim();
+				BeverageDeleter bd = new BeverageDeleter(id);
+				bd.insert();
+			}
+		});
+		btndel.setBounds(295, 25, 120, 23);
+		panel.add(btndel);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 89, 445, 362);
+		contentPane.add(scrollPane);
+
+		list = new JList<String>();
+		scrollPane.setViewportView(list);
+
+		BeverageController beverageController = new BeverageController();
+
+		// 데이터베이스에서 음료 정보 가져오기
+		List<Beverage> beverages = beverageController.getAllBeverages();
+
+		// JList에 표시할 문자열 생성
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for (Beverage beverage : beverages) {
+			String beverageString = String.format("%s | %s | %s | %s | %s | %s | %s", beverage.getPk(), beverage.getName(), beverage.getType(),
+					beverage.getBrand(), beverage.getCalories(), beverage.getServingSize(), beverage.getCaffeine());
+			listModel.addElement(beverageString);
+		}
+
+		// JList에 모델 적용
+		list.setModel(listModel);
+		list.addKeyListener(new KeyListener(list));
+	}
+
+}

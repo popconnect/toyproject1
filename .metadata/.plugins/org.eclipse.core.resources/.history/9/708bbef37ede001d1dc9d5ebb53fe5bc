@@ -1,0 +1,22 @@
+package com.personal.juice.sql;
+
+import java.sql.*;
+
+public class DBConnector {
+    private Connection conn;
+    
+    public DBConnector() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/toyproject", "toyproject", "toyprojectpw");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public ResultSet getTypeData() throws SQLException {
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT DISTINCT type FROM beverages");
+        return rs;
+    }
+}

@@ -1,0 +1,21 @@
+package com.personal.combobox;
+
+import java.util.ArrayList;
+
+import javax.swing.DefaultComboBoxModel;
+
+import com.personal.juice.sql.Beverage;
+
+public class BrandComboboxModel extends DefaultComboBoxModel<String> {
+	
+private ArrayList<Beverage> types ;
+	
+	public BrandComboboxModel() {
+		// TODO Auto-generated constructor stub
+		types = new ArrayList<>();
+		Beverage to = new Beverage();
+		to.setType("브랜드");
+		types.add(to);
+	}
+
+}

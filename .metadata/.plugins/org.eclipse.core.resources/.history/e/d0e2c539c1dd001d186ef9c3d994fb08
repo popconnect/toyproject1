@@ -1,0 +1,61 @@
+package com.personal.juice.sql;
+
+import com.personal.juice.swing.DrinkList;
+import com.personal.juice.swing.DrinkListManager;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import com.personal.juice.swing.LoginManager;
+
+public class LoginController {
+
+    // 데이터베이스 연결 정보
+    private static final String URL = "jdbc:mariadb://localhost:3306/toyproject";
+    private static final String USERNAME = "toyproject";
+    private static final String PASSWORD = "toyprojectpw";
+
+    // 다음 페이지로 이동하는 메서드
+    public static void goToNextPage(LoginManager loginManager) {
+        DrinkListManager drinkListManager = new DrinkListManager();
+        drinkListManager.setVisible(true);
+        loginManager.dispose();
+    }
+
+    // 로그인 검증 메서드
+    public static void verifyLogin(LoginManager loginManager, String id, String password) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            // 입력된 아이디와 비밀번호를 가지고 데이터베이스에서 검색
+            String sql = "SELECT a.id, a.password, m.admin FROM account a JOIN member m ON a.id = m.id WHERE a.id = ? AND a.password = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, id);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int mgr = rs.getInt("mgr");
+                if (mgr == 1) {
+                    // mgr이 1이면 DrinkListManager로 이동
+                    DrinkListManager drinkListManager = new DrinkListManager();
+                    drinkListManager.setVisible(true);
+                    loginManager.dispose();
+                } else {
+                    // mgr이 0이면 DrinkList로 이동
+                    DrinkList drinkList = new DrinkList();
+                    drinkList.setVisible(true);
+                    loginManager.dispose();
+                }
+            } else {
+                // 검색 결과가 없으면 에러 메시지 출력
+                JOptionPane.showMessageDialog(loginManager, "아이디 또는 비밀번호가 다릅니다", "로그인 실패", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

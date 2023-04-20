@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
+    <fullyQualifiedTypeName name="com.personal.juice.swing.DrinkListManager"/>
+    <fullyQualifiedTypeName name="com.personal.juice.swing.LoginManager"/>
+    <fullyQualifiedTypeName name="java.awt.Dimension"/>
+    <fullyQualifiedTypeName name="java.awt.Toolkit"/>
+    <fullyQualifiedTypeName name="java.awt.Point"/>
+    <fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
+    <fullyQualifiedTypeName name="java.awt.GraphicsEnvironment"/>
+    <fullyQualifiedTypeName name="java.awt.Container"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.RegisterController"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.LoginController"/>
+    <fullyQualifiedTypeName name="com.personal.juice.swing.DrinkList"/>
+    <fullyQualifiedTypeName name="com.personal.juice.swing.RegisterManager"/>
+    <fullyQualifiedTypeName name="javax.swing.UIManager"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.treeSetController"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.BeverageDataAccess"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="java.sql.DriverManager"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.DBConnector"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.BeverageInserter"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.BeverageUpdater"/>
+    <fullyQualifiedTypeName name="javax.swing.JList"/>
+    <fullyQualifiedTypeName name="javax.swing.DefaultListModel"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.BeverageController"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.KeyListener"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.BeverageDeleter"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.Beverage"/>
+    <fullyQualifiedTypeName name="com.personal.combobox.TypeComboboxModel"/>
+    <fullyQualifiedTypeName name="java.awt.event.ItemListener"/>
+    <fullyQualifiedTypeName name="java.awt.event.ItemEvent"/>
+    <fullyQualifiedTypeName name="com.personal.combobox.BrandComboboxModel"/>
+    <fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.personal.juice.sql.SurveyController"/>
+</qualifiedTypeNameHistroy>

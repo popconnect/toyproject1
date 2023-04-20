@@ -1,0 +1,133 @@
+package com.personal.juice.swing;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+
+import com.personal.juice.sql.BeverageInserter;
+import com.personal.juice.sql.DBConnector;
+
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class ChangeBeverage extends JDialog {
+	private String id;
+	private JTextField beverage_field;
+	private JTextField brand_field;
+	private JTextField kcal_field;
+	private JTextField servingsize_field;
+	private JTextField caffeine_field;
+	private JTextField type_field;
+	
+	public void setBeverage(String id, String name, String type ,String brand,String calories,String servingSize,String caffeine) {
+		this.id = id;
+		beverage_field.setText(name);
+		type_field.setText(type);
+		brand_field.setText(brand);
+		kcal_field.setText(calories);
+		servingsize_field.setText(servingSize);
+		caffeine_field.setText(caffeine);
+	}
+	
+
+
+	/**
+	 * Create the dialog.
+	 */
+	public ChangeBeverage() {
+		setResizable(false);
+		setBounds(100, 100, 400, 450);
+		getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "\uC74C\uB8CC \uC218\uC815", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(16, 17, 356, 358);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		beverage_field = new JTextField();
+		beverage_field.setBounds(98, 26, 246, 29);
+		panel.add(beverage_field);
+		beverage_field.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("음료 이름");
+		lblNewLabel.setBounds(25, 33, 61, 19);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_1 = new JLabel("음료 종류");
+		lblNewLabel_1.setBounds(25, 72, 61, 19);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		brand_field = new JTextField();
+		brand_field.setBounds(98, 104, 246, 29);
+		panel.add(brand_field);
+		brand_field.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("브랜드");
+		lblNewLabel_2.setBounds(25, 111, 61, 19);
+		panel.add(lblNewLabel_2);
+		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		kcal_field = new JTextField();
+		kcal_field.setBounds(98, 143, 246, 29);
+		panel.add(kcal_field);
+		kcal_field.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("칼로리");
+		lblNewLabel_3.setBounds(25, 150, 61, 19);
+		panel.add(lblNewLabel_3);
+		lblNewLabel_3.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		servingsize_field = new JTextField();
+		servingsize_field.setBounds(98, 182, 246, 29);
+		panel.add(servingsize_field);
+		servingsize_field.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("기준용량");
+		lblNewLabel_4.setBounds(25, 189, 61, 19);
+		panel.add(lblNewLabel_4);
+		lblNewLabel_4.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		caffeine_field = new JTextField();
+		caffeine_field.setBounds(98, 221, 246, 29);
+		panel.add(caffeine_field);
+		caffeine_field.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("카페인");
+		lblNewLabel_5.setBounds(25, 228, 61, 19);
+		panel.add(lblNewLabel_5);
+		lblNewLabel_5.setFont(new Font("굴림", Font.PLAIN, 14));
+		
+		JButton btnNewButton = new JButton("수정하기");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 
+			}
+
+		});
+		btnNewButton.setBounds(25, 287, 319, 29);
+		panel.add(btnNewButton);
+		
+		type_field = new JTextField();
+		type_field.setColumns(10);
+		type_field.setBounds(98, 65, 246, 29);
+		panel.add(type_field);
+		
+	}
+	
+	 
+}
